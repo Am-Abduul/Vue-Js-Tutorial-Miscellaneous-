@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>misc-test</title>
+    <!-- bootstrap link -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <!-- main css -->
+    <style>
+      .divi{
+        border: solid 5px lightblue;
+        /* padding: 200px 20px; */
+        width: 500px;
+        height: 500px;
+      }
+      .innerDivi{
+        display: inline-block;
+        border: solid 1px lightgrey;
+        margin: 200px 190px;
+        width: 80px;
+        height: 80px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vue-body-div">
+      <div class="container">
+        <h1>Miscellanous Tutorials</h1>
+        <hr>
+
+        <!-- main Miscellanous code -->
+        <p>please input the time of day below </p>
+        <caption>e.g morning etc....</caption>
+        <input type="text" v-model="timeOfDay" name="time" >
+        <h1>Hello, {{ greet() }}</h1>
+      <hr>
+        <p>Name is: {{name}}</p>
+        <p>My job is: {{ job }}</p>
+        <p>This is my <a v-bind:href="website">website</a></p>
+        <hr>
+      </div>
+
+      <!-- Fifa goal level counter  -->
+      <div class="container">
+        <p>Your points: {{goals}}</p>
+        <button type="button" class="btn btn-primary"
+          name="button" @click="goalsPlus()">addgoal
+        </button>
+        <button type="button" class="btn btn-primary"
+          name="button" @click="goalsMinus()">subtractgoal
+        </button>
+        <h2>You are at the {{goalsLevel}} level</h2>
+        <hr>
+      </div>
+
+      <!-- mouse move tracker -->
+      <div class="container" style="margin-bottom: 100px">
+      <h2>Hover mouse over the box below</h2>
+        <div class="container divi" v-on:mousemove="moveXnY">
+          <div class="container ">
+            <p class="lead innerDivi">{{ x }}, {{ y }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Vue code below -->
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      var app = new Vue({
+        el: '#vue-body-div',
+        data: {
+          name: 'Abdul',
+          job: 'WebDeveloper',
+          website: 'https://s.codepen.io/Am-Abduul/debug/qmgqOL/yYryLDeQOQPM',
+          goals: 10,
+          timeOfDay: "",
+          x: 0,
+          y: 0
+        },
+        methods: {
+          // Miscellanous greet funtion
+          greet: function() {
+            return 'Good  ' +  this.timeOfDay + ' ' + this.name
+          },
+
+          // Fifa goals funtion
+          goalsPlus: function() {
+            this.goals += 10
+          },
+          goalsMinus: function() {
+            this.goals -= 10
+          },
+          
+          // Mouse move tracker funtion
+          moveXnY: function(event) {console.log(event)
+            this.x = event.offsetX
+            this.y = event.offsetY
+          }
+        },
+        computed: {
+          // goals level determiner
+          goalsLevel: function() {
+            if (this.goals >= 250) {
+              return "Legendary"
+            }
+            else if (this.goals >= 150) {
+              return "World Class"
+            }
+            else if (this.goals >= 100) {
+              return "professional"
+            }
+            else if (this.goals >= 60) {
+              return "Amateur"
+            }
+            else {
+              return "Beginner"
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
